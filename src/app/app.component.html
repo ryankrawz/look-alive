@@ -1,1 +1,5 @@
-<router-outlet></router-outlet>
+<h3 *ngIf="!deckService.signedIn">
+    Whoops! Having trouble contacting the Google API. Reach out to the development team for more details.
+</h3>
+<router-outlet *ngIf="deckService.signedIn"
+></router-outlet>
