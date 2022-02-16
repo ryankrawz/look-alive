@@ -16,6 +16,8 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.deckService.initClient();
+    this.deckService.getDeckCategories();
+    console.log(this.deckService.deckCategories);
   }
 
 }
