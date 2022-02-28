@@ -1,4 +1,4 @@
 <h1>Look Alive</h1>
 <h2>You've played charades, now get ready for the ultimate test.</h2>
-<button [routerLink]="'create-deck'">Create New Game</button>
-<button *ngIf="existingDeck" [routerLink]="`play/${existingDeck.name}`">Resume Game: {{ existingDeck.name }}</button>
+<button [routerLink]="'create-deck'">Start New Game</button>
+<button *ngIf="currentDeck" [routerLink]="'play'">Resume Game: {{ currentDeck.name }}</button>

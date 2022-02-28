@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
 import { Deck } from '../interfaces/deck.interface';
-
 import { DeckService } from '../services/deck.service';
 
 @Component({
@@ -10,14 +9,15 @@ import { DeckService } from '../services/deck.service';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  existingDeck: Deck | null = null;
+  currentDeck: Deck | null = null;
 
   constructor(
     private deckService: DeckService,
   ) { }
 
   ngOnInit(): void {
-    this.existingDeck = this.deckService.loadDeck();
+    this.deckService.loadDeck();
+    this.currentDeck = this.deckService.getCurrentDeck();
   }
 
 }
