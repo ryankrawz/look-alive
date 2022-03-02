@@ -1,6 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 
-import { Deck } from '../interfaces/deck.interface';
 import { DeckService } from '../services/deck.service';
 
 @Component({
@@ -10,6 +9,8 @@ import { DeckService } from '../services/deck.service';
 })
 export class PlayComponent implements OnDestroy, OnInit {
   currentCard: string = '';
+  deckName: string = '';
+  previousScore: number | null = null;
   roundStarted: boolean = false;
   // Default round length is 60 seconds
   remainingSec: number = 60;
@@ -25,6 +26,8 @@ export class PlayComponent implements OnDestroy, OnInit {
 
   ngOnInit(): void {
     if (this.deckService.currentDeck) {
+      this.deckName = this.deckService.currentDeck.name;
+      this.previousScore = this.deckService.currentDeck.previousScore !== undefined ? this.deckService.currentDeck.previousScore : null;
       this.startPosition = this.deckService.currentDeck.position;
       this.currentCard = this.deckService.getCurrentCard();
     }
@@ -57,9 +60,11 @@ export class PlayComponent implements OnDestroy, OnInit {
   end(): void {
     removeEventListener('deviceorientation', this.deviceOrientationHandler);
     if (this.deckService.currentDeck) {
+      this.previousScore = this.score;
       this.deckService.currentDeck.previousScore = this.score;
     }
     this.deckService.writeDeck();
+    this.score = 0;
     this.roundStarted = false;
   }
 
