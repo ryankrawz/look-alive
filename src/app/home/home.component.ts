@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Deck } from '../interfaces/deck.interface';
 import { DeckService } from '../services/deck.service';
 
 @Component({
@@ -9,15 +8,23 @@ import { DeckService } from '../services/deck.service';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  currentDeck: Deck | null = null;
+  deckName: string | null = null;
+  onMobileDevice: boolean = true;
+  browserSupportsOrientation: boolean = true;
 
   constructor(
     private deckService: DeckService,
   ) { }
 
   ngOnInit(): void {
-    this.deckService.loadDeck();
-    this.currentDeck = this.deckService.getCurrentDeck();
+    this.onMobileDevice = screen.width <= 800;
+    this.browserSupportsOrientation = Boolean(window.DeviceOrientationEvent);
+    if (this.onMobileDevice && this.browserSupportsOrientation) {
+      this.deckService.loadDeck();
+      if (this.deckService.currentDeck) {
+        this.deckName = this.deckService.currentDeck.name;
+      }
+    }
   }
 
 }

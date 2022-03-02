@@ -6,13 +6,15 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { PlayComponent } from './play/play.component';
 import { CreateDeckComponent } from './create-deck/create-deck.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     PlayComponent,
-    CreateDeckComponent
+    CreateDeckComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,

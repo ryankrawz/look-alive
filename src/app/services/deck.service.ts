@@ -1,3 +1,4 @@
+import { ThisReceiver } from '@angular/compiler';
 import { Injectable } from '@angular/core';
 
 import { Deck } from '../interfaces/deck.interface';
@@ -16,15 +17,35 @@ export class DeckService {
     localStorage.removeItem(this.deckKey);
   }
 
-  // Getter for current loaded deck
-  getCurrentDeck(): Deck | null {
-    return this.currentDeck;
+  // Getter for card at current position
+  getCurrentCard(): string {
+    return this.currentDeck ? this.currentDeck.cards[this.currentDeck.position] : '';
   }
 
   // Loads JSON file holding deck from storage, returns null if deck does not exist
   loadDeck(): void {
     const deckString = localStorage.getItem(this.deckKey);
     this.currentDeck = deckString ? JSON.parse(deckString) : null;
+  }
+
+  // Increment position pointer in deck, returns false if no further cards
+  nextCard(start: number): boolean {
+    if (this.currentDeck) {
+      this.currentDeck.position = (
+        this.currentDeck.position < this.currentDeck.cards.length - 1 ?
+        this.currentDeck.position + 1 :
+        0
+      );
+      return this.currentDeck.position === start;
+    }
+    return false;
+  }
+
+  // Setter for previous score
+  setPreviousScore(score: number): void {
+    if (this.currentDeck) {
+      this.currentDeck.previousScore = score;
+    }
   }
 
   // Shuffles cards in deck
@@ -39,7 +60,7 @@ export class DeckService {
   }
 
   // Writes deck to JSON file for storage
-  writeDeck(deck: Deck): void {
-    localStorage.setItem(this.deckKey, JSON.stringify(deck));
+  writeDeck(): void {
+    localStorage.setItem(this.deckKey, JSON.stringify(this.currentDeck));
   }
 }

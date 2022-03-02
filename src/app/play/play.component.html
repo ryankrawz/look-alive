@@ -1,1 +1,9 @@
-<p>play works!</p>
+<div *ngIf="!roundStarted">
+    <h2>Are you ready for <strong>{{ currentDeck.name }}</strong>?</h2>
+    <h3 *ngIf="previousScore">Previous round's score: {{ previousScore }}</h3>
+    <button onclick="start()">Start</button>
+</div>
+<div *ngIf="roundStarted">
+    <p>{{ currentCard }}</p>
+    <p>{{ remainingSec }}</p>
+</div>
