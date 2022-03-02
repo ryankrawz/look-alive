@@ -1,9 +1,26 @@
-<div *ngIf="!roundStarted">
-    <h2>Are you ready for <strong>{{ deckName }}</strong>?</h2>
-    <h3 *ngIf="previousScore !== null">Previous round's score: {{ previousScore }}</h3>
-    <button onclick="start()">Start</button>
-</div>
-<div *ngIf="roundStarted">
-    <p>{{ currentCard }}</p>
-    <p>{{ remainingSec }}</p>
+<div [class.landscape]="roundStarted">
+    <div *ngIf="!roundStarted">
+        <i [routerLink]="''" class="fa-solid fa-circle-arrow-left"></i>
+        <div *ngIf="!endReached">
+            <h2>Are you ready for <strong>{{ deckName }}</strong>?</h2>
+            <h3 *ngIf="previousScore !== null">Previous round's score: {{ previousScore }}</h3>
+            <button onclick="start()">Start</button>
+        </div>
+        <div *ngIf="endReached">
+            <h2>You've reached the end of the deck for <strong>{{ deckName }}</strong>!</h2>
+            <h3 *ngIf="previousScore !== null">Previous round's score: {{ previousScore }}</h3>
+        </div>
+    </div>
+    <div *ngIf="roundStarted">
+        <div *ngIf="!(resultCorrect || resultSkip)">
+            <p>{{ currentCard }}</p>
+            <p>{{ remainingSec }}</p>
+        </div>
+        <div *ngIf="resultCorrect">
+            <h1>Correct <i class="fa-solid fa-circle-check"></i></h1>
+        </div>
+        <div *ngIf="resultSkip">
+            <h1>Skip <i class="fa-solid fa-forward"></i></h1>
+        </div>
+    </div>
 </div>
