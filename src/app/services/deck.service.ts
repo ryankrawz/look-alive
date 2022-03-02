@@ -62,6 +62,7 @@ export class DeckService {
   writeDeck(deck?: Deck): void {
     if (deck) {
       localStorage.setItem(this.deckKey, JSON.stringify(deck));
+      this.currentDeck = deck;
     } else {
       localStorage.setItem(this.deckKey, JSON.stringify(this.currentDeck));
     }

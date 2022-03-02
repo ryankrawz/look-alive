@@ -8,6 +8,7 @@ import { DeckService } from '../services/deck.service';
   styleUrls: ['./play.component.scss']
 })
 export class PlayComponent implements OnDestroy, OnInit {
+  countDown: number = 0;
   currentCard: string = '';
   deckName: string = '';
   endReached: boolean = false;
@@ -27,6 +28,7 @@ export class PlayComponent implements OnDestroy, OnInit {
   }
 
   ngOnInit(): void {
+    this.deckService.loadDeck();
     if (this.deckService.currentDeck) {
       this.deckName = this.deckService.currentDeck.name;
       this.previousScore = this.deckService.currentDeck.previousScore !== undefined ? this.deckService.currentDeck.previousScore : null;
@@ -67,11 +69,10 @@ export class PlayComponent implements OnDestroy, OnInit {
     removeEventListener('deviceorientation', this.deviceOrientationHandler);
     this.resultCorrect = correct;
     this.resultSkip = !correct;
-    setTimeout(() => {
-      this.resultCorrect = false;
-      this.resultSkip = false;
-      addEventListener('deviceorientation', this.deviceOrientationHandler);
-    }, 500);
+    this.sleep(500);
+    this.resultCorrect = false;
+    this.resultSkip = false;
+    addEventListener('deviceorientation', this.deviceOrientationHandler);
   }
 
   // Sets previous score and wristes updated deck
@@ -86,12 +87,27 @@ export class PlayComponent implements OnDestroy, OnInit {
     this.roundStarted = false;
   }
 
+  // Waits for the given amount of ms
+  sleep(ms: number): void {
+    const baseDate = Date.now();
+    let currentDate = Date.now();
+    while (currentDate - baseDate < ms) {
+      currentDate = Date.now();
+    }
+  }
+
   // Begins round countdown and shows current card in deck
   start(): void {
     this.roundStarted = true;
     if (this.deckService.currentDeck) {
       // Default round length is 60 sec
       this.remainingSec = this.deckService.currentDeck.roundLengthSec;
+    }
+    // 3 second period for player to prepare
+    this.countDown = 3;
+    while (this.countDown !== 0) {
+      this.sleep(1000);
+      this.countDown--;
     }
     // Decrement round length to count down seconds
     const roundInterval = setInterval(() => {
