@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { DeckService } from '../services/deck.service';
 
@@ -17,6 +18,7 @@ export class CreateDeckComponent implements OnInit {
 
   constructor(
     private deckService: DeckService,
+    private router: Router,
   ) { }
 
   ngOnInit(): void {
@@ -45,6 +47,7 @@ export class CreateDeckComponent implements OnInit {
       position: 0,
       roundLengthSec: this.roundLength,
     });
+    this.router.navigateByUrl('/play');
   }
 
 }
