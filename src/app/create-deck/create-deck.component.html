@@ -1,16 +1,16 @@
 <div *ngIf="!deckNameEntered">
     <label for="deck-name">What's the name of your game?</label>
     <input [(ngModel)]="deckName" type="text" id="deck-name" name="deckName">
-    <button [disabled]="!deckName" onclick="enter()">Enter</button>
+    <button [disabled]="!deckName" (click)="enter()">Enter</button>
 </div>
 <div *ngIf="deckNameEntered && !roundLengthEntered">
     <label for="round-length">How many seconds should each round last?</label>
     <input [(ngModel)]="roundLength" type="number" id="round-length" name="roundLength">
-    <button [disabled]="!(roundLength > 0)" onclick="enter()">Enter</button>
+    <button [disabled]="!(roundLength > 0)" (click)="enter()">Enter</button>
 </div>
 <div *ngIf="deckNameEntered && roundLengthEntered">
     <label for="card">Add a card to your game:</label>
     <input [(ngModel)]="card" type="text" id="card" name="card">
-    <button [disabled]="!card" onclick="add()">Add</button>
-    <button [disabled]="cards.length === 0" onclick="finish()">Finish</button>
+    <button [disabled]="!card" (click)="add()">Add</button>
+    <button [disabled]="cards.length === 0" (click)="finish()">Finish</button>
 </div>

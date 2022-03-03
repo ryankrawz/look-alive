@@ -3,7 +3,7 @@
     <div *ngIf="!endReached">
         <h2>Are you ready for <strong>{{ deckName }}</strong>?</h2>
         <h3 *ngIf="previousScore !== null">Previous round's score: {{ previousScore }}</h3>
-        <button onclick="start()">Start</button>
+        <button (click)="start()">Start</button>
     </div>
     <div *ngIf="endReached">
         <h2>You've reached the end of the deck for <strong>{{ deckName }}</strong>!</h2>
