@@ -1,0 +1,6 @@
+.landscape {
+    @media only screen and (orientation:portrait) {
+        height: 100vw;
+        transform: rotate(90deg);
+    }
+}

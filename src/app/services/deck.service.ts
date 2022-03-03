@@ -1,4 +1,3 @@
-import { ThisReceiver } from '@angular/compiler';
 import { Injectable } from '@angular/core';
 
 import { Deck } from '../interfaces/deck.interface';
@@ -60,7 +59,12 @@ export class DeckService {
   }
 
   // Writes deck to JSON file for storage
-  writeDeck(): void {
-    localStorage.setItem(this.deckKey, JSON.stringify(this.currentDeck));
+  writeDeck(deck?: Deck): void {
+    if (deck) {
+      localStorage.setItem(this.deckKey, JSON.stringify(deck));
+      this.currentDeck = deck;
+    } else {
+      localStorage.setItem(this.deckKey, JSON.stringify(this.currentDeck));
+    }
   }
 }
