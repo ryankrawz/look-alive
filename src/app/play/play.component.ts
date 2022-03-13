@@ -50,8 +50,6 @@ export class PlayComponent implements OnDestroy, OnInit {
     const correct = Boolean(e.gamma && e.gamma > 0 && e.gamma < 10);
     // Skip: gamma rotation between 0 and -10 degrees
     const skip = Boolean(e.gamma && e.gamma < 0 && e.gamma > -10);
-    // TODO: delete
-    this.roundStarted = false;
     if (correct || skip) {
       this.displayResult(correct);
       if (correct) {
