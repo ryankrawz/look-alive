@@ -39,7 +39,7 @@ export class DeckService {
       );
       console.log(`Start: ${start}`);
       console.log(`Current position: ${this.currentDeck.position}`);
-      return this.currentDeck.position === start;
+      return this.currentDeck.position !== start;
     }
     console.log('No deck!');
     return false;
