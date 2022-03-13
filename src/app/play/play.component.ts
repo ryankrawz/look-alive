@@ -56,6 +56,7 @@ export class PlayComponent implements OnDestroy, OnInit {
         this.score++;
       }
       const nextCard = this.deckService.nextCard(this.startPosition);
+      console.log(`Next card? ${nextCard}`);
       if (!nextCard) {
         this.end();
         this.endReached = true;
