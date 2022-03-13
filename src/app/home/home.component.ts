@@ -17,7 +17,8 @@ export class HomeComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.onMobileDevice = screen.width <= 800;
+    // this.onMobileDevice = screen.width <= 800;
+    this.onMobileDevice = true;
     this.browserSupportsOrientation = Boolean(window.DeviceOrientationEvent);
     if (this.onMobileDevice && this.browserSupportsOrientation) {
       this.deckService.loadDeck();
