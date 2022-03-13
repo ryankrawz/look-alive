@@ -71,7 +71,7 @@ export class PlayComponent implements OnDestroy, OnInit {
     this.resultCorrect = correct;
     this.resultSkip = !correct;
     console.log(`sleeping: ${Date.now()}`);
-    this.sleep(500);
+    this.sleep(3000);
     console.log(`slept: ${Date.now()}`);
     this.resultCorrect = false;
     this.resultSkip = false;
