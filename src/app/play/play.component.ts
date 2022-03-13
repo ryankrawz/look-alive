@@ -12,6 +12,7 @@ export class PlayComponent implements OnDestroy, OnInit {
   currentCard: string = '';
   deckName: string = '';
   endReached: boolean = false;
+  nextCard: boolean = true;
   previousScore: number | null = null;
   roundStarted: boolean = false;
   remainingSec: number = 60;
@@ -55,12 +56,12 @@ export class PlayComponent implements OnDestroy, OnInit {
       if (correct) {
         this.score++;
       }
-      const nextCard = this.deckService.nextCard(this.startPosition);
-      console.log(`Next card? ${nextCard}`);
-      if (!nextCard) {
+      console.log(`Next card? ${this.nextCard}`);
+      if (!this.nextCard) {
         this.end();
         this.endReached = true;
       }
+      this.nextCard = this.deckService.nextCard(this.startPosition);
       this.currentCard = this.deckService.getCurrentCard();
     }
   }
