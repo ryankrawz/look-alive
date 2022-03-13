@@ -46,6 +46,8 @@ export class PlayComponent implements OnDestroy, OnInit {
 
   // Handles changes in gamma rotation
   deviceOrientationHandler(e: DeviceOrientationEvent): void {
+    console.log('Device orientation change');
+    console.log(`Gamma: ${e.gamma}`);
     // Correct guess: gamma rotation between 0 and 10 degrees
     const correct = Boolean(e.gamma && e.gamma > 0 && e.gamma < 10);
     // Skip: gamma rotation between 0 and -10 degrees
