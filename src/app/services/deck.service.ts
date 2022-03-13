@@ -29,14 +29,19 @@ export class DeckService {
 
   // Increment position pointer in deck, returns false if no further cards
   nextCard(start: number): boolean {
+    console.log('Getting next card');
+    console.log(this.currentDeck);
     if (this.currentDeck) {
       this.currentDeck.position = (
         this.currentDeck.position < this.currentDeck.cards.length - 1 ?
         this.currentDeck.position + 1 :
         0
       );
+      console.log(`Start: ${start}`);
+      console.log(`Current position: ${this.currentDeck.position}`);
       return this.currentDeck.position === start;
     }
+    console.log('No deck!');
     return false;
   }
 
