@@ -66,18 +66,18 @@ export class PlayComponent implements OnDestroy, OnInit {
 
   // Pauses device orientation listener for 500 ms and indicates a correct guess or skip
   displayResult(correct: boolean): void {
-    removeEventListener('deviceorientation', this.deviceOrientationHandler);
+    removeEventListener('deviceorientation', this.deviceOrientationHandler.bind(this));
     this.resultCorrect = correct;
     this.resultSkip = !correct;
     this.sleep(500);
     this.resultCorrect = false;
     this.resultSkip = false;
-    addEventListener('deviceorientation', this.deviceOrientationHandler);
+    addEventListener('deviceorientation', this.deviceOrientationHandler.bind(this));
   }
 
   // Sets previous score and wristes updated deck
   end(): void {
-    removeEventListener('deviceorientation', this.deviceOrientationHandler);
+    removeEventListener('deviceorientation', this.deviceOrientationHandler.bind(this));
     if (this.deckService.currentDeck) {
       this.previousScore = this.score;
       this.deckService.currentDeck.previousScore = this.score;
@@ -117,6 +117,6 @@ export class PlayComponent implements OnDestroy, OnInit {
       }
       this.remainingSec--;
     }, 1000);
-    addEventListener('deviceorientation', this.deviceOrientationHandler);
+    addEventListener('deviceorientation', this.deviceOrientationHandler.bind(this));
   }
 }
