@@ -66,10 +66,13 @@ export class PlayComponent implements OnDestroy, OnInit {
 
   // Pauses device orientation listener for 500 ms and indicates a correct guess or skip
   displayResult(correct: boolean): void {
+    console.log('displaying results');
     removeEventListener('deviceorientation', this.deviceOrientationHandler.bind(this));
     this.resultCorrect = correct;
     this.resultSkip = !correct;
+    console.log(`sleeping: ${Date.now()}`);
     this.sleep(500);
+    console.log(`slept: ${Date.now()}`);
     this.resultCorrect = false;
     this.resultSkip = false;
     addEventListener('deviceorientation', this.deviceOrientationHandler.bind(this));
