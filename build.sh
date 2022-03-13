@@ -7,3 +7,4 @@ git commit -m "Build $(date +"%s")"
 git push
 git checkout main
 git merge gh-pages
+rm -rf docs
