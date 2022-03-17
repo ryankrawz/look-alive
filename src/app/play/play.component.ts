@@ -91,15 +91,6 @@ export class PlayComponent implements OnDestroy, OnInit {
     }
   }
 
-  // Waits for the given amount of ms
-  sleep(ms: number): void {
-    const baseDate = Date.now();
-    let currentDate = Date.now();
-    while (currentDate - baseDate < ms) {
-      currentDate = Date.now();
-    }
-  }
-
   // Begins round countdown and shows current card in deck
   start(): void {
     this.roundStarted = true;
