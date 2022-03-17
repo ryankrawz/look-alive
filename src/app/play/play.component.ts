@@ -12,7 +12,6 @@ export class PlayComponent implements OnDestroy, OnInit {
   currentCard: string = '';
   deckName: string = '';
   endReached: boolean = false;
-  nextCard: boolean = true;
   previousScore: number | null = null;
   roundStarted: boolean = false;
   remainingSec: number = 60;
@@ -20,6 +19,7 @@ export class PlayComponent implements OnDestroy, OnInit {
   resultSkip: boolean = false;
   score: number = 0;
   startPosition: number = 0;
+  timeoutId: number | null = null;
 
   constructor(
     private deckService: DeckService,
@@ -45,44 +45,18 @@ export class PlayComponent implements OnDestroy, OnInit {
     removeEventListener('beforeunload', this.ngOnDestroy.bind(this));
   }
 
-  // Handles changes in gamma rotation
-  deviceOrientationHandler(e: DeviceOrientationEvent): void {
-    // Correct guess: gamma rotation between 0 and 10 degrees
-    const correct = Boolean(e.gamma && e.gamma > 0 && e.gamma < 10);
-    // Skip: gamma rotation between 0 and -10 degrees
-    const skip = Boolean(e.gamma && e.gamma < 0 && e.gamma > -10);
-    if (correct || skip) {
-      this.displayResult(correct);
-      if (correct) {
-        this.score++;
-      }
-      console.log(`Next card? ${this.nextCard}`);
-      if (!this.nextCard) {
-        this.end();
-        this.endReached = true;
-      }
-      this.nextCard = this.deckService.nextCard(this.startPosition);
-      this.currentCard = this.deckService.getCurrentCard();
-    }
-  }
-
   // Pauses device orientation listener for 500 ms and indicates a correct guess or skip
   displayResult(correct: boolean): void {
-    console.log('displaying results');
-    removeEventListener('deviceorientation', this.deviceOrientationHandler.bind(this));
     this.resultCorrect = correct;
     this.resultSkip = !correct;
-    console.log(`sleeping: ${Date.now()}`);
-    this.sleep(3000);
-    console.log(`slept: ${Date.now()}`);
-    this.resultCorrect = false;
-    this.resultSkip = false;
-    addEventListener('deviceorientation', this.deviceOrientationHandler.bind(this));
+    window.setTimeout(() => {
+      this.resultCorrect = false;
+      this.resultSkip = false;
+    }, 2000);
   }
 
   // Sets previous score and wristes updated deck
   end(): void {
-    removeEventListener('deviceorientation', this.deviceOrientationHandler.bind(this));
     if (this.deckService.currentDeck) {
       this.previousScore = this.score;
       this.deckService.currentDeck.previousScore = this.score;
@@ -90,6 +64,31 @@ export class PlayComponent implements OnDestroy, OnInit {
     this.deckService.writeDeck();
     this.score = 0;
     this.roundStarted = false;
+  }
+
+  // Handles event for button being held down
+  mouseDownHandler(correct: boolean): void {
+    // Collect result if held for 500 milliseconds
+    this.timeoutId = window.setTimeout(() => {
+      this.displayResult(correct);
+      if (correct) {
+        this.score++;
+      }
+      const nextCard = this.deckService.nextCard(this.startPosition);
+      if (!nextCard) {
+        this.end();
+        this.endReached = true;
+      }
+      this.currentCard = this.deckService.getCurrentCard();
+    }, 500);
+  }
+
+  // Handles event for button being released
+  mouseUpHandler(): void {
+    if (this.timeoutId !== null) {
+      window.clearTimeout(this.timeoutId);
+      this.timeoutId = null;
+    }
   }
 
   // Waits for the given amount of ms
@@ -110,18 +109,22 @@ export class PlayComponent implements OnDestroy, OnInit {
     }
     // 3 second period for player to prepare
     this.countDown = 3;
-    while (this.countDown !== 0) {
-      this.sleep(1000);
-      this.countDown--;
-    }
+    const countDownInterval = setInterval(() => {
+      if (this.countDown === 0) {
+        clearInterval(countDownInterval);
+      } else {
+        this.countDown--;
+      }
+    }, 1000);
     // Decrement round length to count down seconds
     const roundInterval = setInterval(() => {
       if (this.remainingSec === 0) {
         clearInterval(roundInterval);
         this.end();
+      // Only decrement round countdown if initial countdown is completed
+      } else if (this.countDown === 0) {
+        this.remainingSec--;
       }
-      this.remainingSec--;
     }, 1000);
-    addEventListener('deviceorientation', this.deviceOrientationHandler.bind(this));
   }
 }

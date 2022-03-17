@@ -1,10 +1,4 @@
-<h2 *ngIf="!onMobileDevice">
-    Oops! This game can only be played on a mobile device.
-</h2>
-<h2 *ngIf="!browserSupportsOrientation">
-    Oops! Your browser's current version doesn't support device orientation. Try upgrading or changing your browser.
-</h2>
-<div *ngIf="onMobileDevice && browserSupportsOrientation">
+<div>
     <h1>Look Alive</h1>
     <h2>You've played charades, now get ready for the ultimate test.</h2>
     <button [routerLink]="'create-deck'">Start New Game</button>

@@ -1,3 +1,9 @@
+.fill {
+    background: white;
+    position: absolute;
+    inset: 0px;
+}
+
 .landscape {
     @media only screen and (orientation:portrait) {
         height: 100vw;

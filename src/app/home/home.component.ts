@@ -9,22 +9,15 @@ import { DeckService } from '../services/deck.service';
 })
 export class HomeComponent implements OnInit {
   deckName: string | null = null;
-  onMobileDevice: boolean = true;
-  browserSupportsOrientation: boolean = true;
 
   constructor(
     private deckService: DeckService,
   ) { }
 
   ngOnInit(): void {
-    // this.onMobileDevice = screen.width <= 800;
-    this.onMobileDevice = true;
-    this.browserSupportsOrientation = Boolean(window.DeviceOrientationEvent);
-    if (this.onMobileDevice && this.browserSupportsOrientation) {
-      this.deckService.loadDeck();
-      if (this.deckService.currentDeck) {
-        this.deckName = this.deckService.currentDeck.name;
-      }
+    this.deckService.loadDeck();
+    if (this.deckService.currentDeck) {
+      this.deckName = this.deckService.currentDeck.name;
     }
   }
 
