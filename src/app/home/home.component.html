@@ -1,6 +1,8 @@
-<div>
-    <h1>Look Alive</h1>
-    <h2>You've played charades, now get ready for the ultimate test.</h2>
-    <button [routerLink]="'create-deck'">Start New Game</button>
-    <button *ngIf="deckName" [routerLink]="'play'">Resume Game: {{ deckName }}</button>
+<div class="full-page spectrum-background">
+    <div class="center-page">
+        <h1>L<div class="eye"></div><div class="eye"></div>k Alive</h1>
+        <h4>A guessing game like you've never seen before.</h4>
+        <button type="button" class="btn btn-dark" [routerLink]="'create-deck'">Start New Game</button>
+        <button type="button" class="btn btn-dark" *ngIf="deckName" [routerLink]="'play'">Resume Game: {{ deckName }}</button>
+    </div>
 </div>

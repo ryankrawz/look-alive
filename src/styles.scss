@@ -1,1 +1,37 @@
-/* You can add global styles to this file, and also import other style files */
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    height: 100vh;
+    width: 100vw;
+}
+
+button {
+    margin: 3%;
+}
+
+.center-page {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+.full-page {
+    height: 100%;
+    width: 100%;
+}
+
+.spectrum-background {
+    background:
+        linear-gradient(to top left, purple, transparent),
+        linear-gradient(to top right, blue, transparent);
+    background-blend-mode: screen;
+}

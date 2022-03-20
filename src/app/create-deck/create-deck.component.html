@@ -1,16 +1,20 @@
-<div *ngIf="!deckNameEntered">
-    <label for="deck-name">What's the name of your game?</label>
-    <input [(ngModel)]="deckName" type="text" id="deck-name" name="deckName">
-    <button [disabled]="!deckName" (click)="enter()">Enter</button>
-</div>
-<div *ngIf="deckNameEntered && !roundLengthEntered">
-    <label for="round-length">How many seconds should each round last?</label>
-    <input [(ngModel)]="roundLength" type="number" id="round-length" name="roundLength">
-    <button [disabled]="!(roundLength > 0)" (click)="enter()">Enter</button>
-</div>
-<div *ngIf="deckNameEntered && roundLengthEntered">
-    <label for="card">Add a card to your game:</label>
-    <input [(ngModel)]="card" type="text" id="card" name="card">
-    <button [disabled]="!card" (click)="add()">Add</button>
-    <button [disabled]="cards.length === 0" (click)="finish()">Finish</button>
+<div class="full-page spectrum-background">
+    <div class="center-page">
+        <div *ngIf="!deckNameEntered">
+            <label for="deck-name"><h4>What's the name of your game?</h4></label>
+            <input class="form-control" [(ngModel)]="deckName" type="text" id="deck-name" name="deckName">
+            <button type="button" class="btn btn-dark" [disabled]="!deckName" (click)="enter()">Enter</button>
+        </div>
+        <div *ngIf="deckNameEntered && !roundLengthEntered">
+            <label for="round-length"><h4>How many seconds should each round last?</h4></label>
+            <input class="form-control" [(ngModel)]="roundLength" type="number" id="round-length" name="roundLength">
+            <button type="button" class="btn btn-dark" [disabled]="!(roundLength > 0)" (click)="enter()">Enter</button>
+        </div>
+        <div *ngIf="deckNameEntered && roundLengthEntered">
+            <label for="card"><h4>Add a card to your game:</h4></label>
+            <input class="form-control" [(ngModel)]="card" type="text" id="card" name="card">
+            <button type="button" class="btn btn-light" [disabled]="!card" (click)="add()">Add</button>
+            <button type="button" class="btn btn-dark" [disabled]="cards.length === 0" (click)="finish()">Finish</button>
+        </div>
+    </div>
 </div>
