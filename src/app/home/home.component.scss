@@ -1,0 +1,108 @@
+.eye {
+    position: relative;
+    display: inline-block;
+    border-radius: 50%;
+    height: 30px;
+    width: 30px;
+    background: white;
+}
+
+// Pupil
+.eye:after {
+    position: absolute;
+    bottom: 10px;
+    right: 17px;
+    width: 10px;
+    height: 10px;
+    background: #000;
+    border-radius: 50%;
+    content: " ";
+    animation: slide 6s linear infinite;
+}
+
+@keyframes slide {
+    17% {
+        right: 16px;
+    }
+    18% {
+        right: 15px;
+    }
+    19% {
+        right: 14px;
+    }
+    20% {
+        right: 13px;
+    }
+    21% {
+        right: 12px;
+    }
+    22% {
+        right: 11px;
+    }
+    23% {
+        right: 10px;
+    }
+    24% {
+        right: 9px;
+    }
+    25% {
+        right: 8px;
+    }
+    26% {
+        right: 7px;
+    }
+    27% {
+        right: 6px;
+    }
+    29% {
+        right: 5px;
+    }
+    31% {
+        right: 4px;
+    }
+    33% {
+        right: 3px;
+    }
+    67% {
+        right: 4px;
+    }
+    69% {
+        right: 5px;
+    }
+    71% {
+        right: 6px;
+    }
+    73% {
+        right: 7px;
+    }
+    74% {
+        right: 8px;
+    }
+    75% {
+        right: 9px;
+    }
+    76% {
+        right: 10px;
+    }
+    77% {
+        right: 11px;
+    }
+    78% {
+        right: 12px;
+    }
+    79% {
+        right: 13px;
+    }
+    80% {
+        right: 14px;
+    }
+    81% {
+        right: 15px;
+    }
+    82% {
+        right: 16px;
+    }
+    83% {
+        right: 17px;
+    }
+}

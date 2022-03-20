@@ -19,7 +19,6 @@ export class PlayComponent implements OnDestroy, OnInit {
   resultSkip: boolean = false;
   score: number = 0;
   startPosition: number = 0;
-  timeoutId: number | null = null;
 
   constructor(
     private deckService: DeckService,
@@ -55,6 +54,20 @@ export class PlayComponent implements OnDestroy, OnInit {
     }, 2000);
   }
 
+  // Handles event for button being double clicked
+  doubleClickHandler(correct: boolean): void {
+    this.displayResult(correct);
+    if (correct) {
+      this.score++;
+    }
+    const nextCard = this.deckService.nextCard(this.startPosition);
+    if (!nextCard) {
+      this.end();
+      this.endReached = true;
+    }
+    this.currentCard = this.deckService.getCurrentCard();
+  }
+
   // Sets previous score and wristes updated deck
   end(): void {
     if (this.deckService.currentDeck) {
@@ -64,31 +77,6 @@ export class PlayComponent implements OnDestroy, OnInit {
     this.deckService.writeDeck();
     this.score = 0;
     this.roundStarted = false;
-  }
-
-  // Handles event for button being held down
-  mouseDownHandler(correct: boolean): void {
-    // Collect result if held for 500 milliseconds
-    this.timeoutId = window.setTimeout(() => {
-      this.displayResult(correct);
-      if (correct) {
-        this.score++;
-      }
-      const nextCard = this.deckService.nextCard(this.startPosition);
-      if (!nextCard) {
-        this.end();
-        this.endReached = true;
-      }
-      this.currentCard = this.deckService.getCurrentCard();
-    }, 500);
-  }
-
-  // Handles event for button being released
-  mouseUpHandler(): void {
-    if (this.timeoutId !== null) {
-      window.clearTimeout(this.timeoutId);
-      this.timeoutId = null;
-    }
   }
 
   // Begins round countdown and shows current card in deck

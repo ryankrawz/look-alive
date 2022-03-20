@@ -20,15 +20,11 @@
             <p>{{ remainingSec }}</p>
             <div
                 [class.fill]="resultCorrect"
-                (mousedown)="mouseDownHandler(true)"
-                (mouseup)="mouseUpHandler()"
-                (mouseleave)="mouseUpHandler()"
+                (dblclick)="doubleClickHandler(true)"
             ><span>Correct <i class="fa-solid fa-circle-check"></i></span></div>
             <div
                 [class.fill]="resultSkip"
-                (mousedown)="mouseDownHandler(false)"
-                (mouseup)="mouseUpHandler()"
-                (mouseleave)="mouseUpHandler()"
+                (dblclick)="doubleClickHandler(false)"
             ><span>Skip <i class="fa-solid fa-forward"></i></span></div>
         </div>
     </div>
