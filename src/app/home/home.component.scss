@@ -21,88 +21,109 @@
 }
 
 @keyframes slide {
+    from {
+        right: 17px;
+    }
     17% {
-        right: 16px;
+        right: 16.18px;
     }
     18% {
-        right: 15px;
+        right: 15.36px;
     }
     19% {
-        right: 14px;
+        right: 14.54px;
     }
     20% {
-        right: 13px;
+        right: 13.72px;
     }
     21% {
-        right: 12px;
+        right: 12.9px;
     }
     22% {
-        right: 11px;
+        right: 12.08px;
     }
     23% {
-        right: 10px;
+        right: 11.26px;
     }
     24% {
-        right: 9px;
+        right: 10.44px;
     }
     25% {
-        right: 8px;
+        right: 9.62px;
     }
     26% {
-        right: 7px;
+        right: 8.8px;
     }
     27% {
-        right: 6px;
+        right: 7.98px;
+    }
+    28% {
+        right: 7.16px;
     }
     29% {
-        right: 5px;
+        right: 6.34px;
+    }
+    30% {
+        right: 5.52px;
     }
     31% {
-        right: 4px;
+        right: 4.7px;
+    }
+    32% {
+        right: 3.88px;
     }
     33% {
         right: 3px;
     }
     67% {
-        right: 4px;
+        right: 3.82px;
+    }
+    68% {
+        right: 4.64px;
     }
     69% {
-        right: 5px;
+        right: 5.46px;
+    }
+    70% {
+        right: 6.28px;
     }
     71% {
-        right: 6px;
+        right: 7.1px;
+    }
+    72% {
+        right: 7.92;
     }
     73% {
-        right: 7px;
+        right: 8.74px;
     }
     74% {
-        right: 8px;
+        right: 9.56px;
     }
     75% {
-        right: 9px;
+        right: 10.38px;
     }
     76% {
-        right: 10px;
+        right: 11.2px;
     }
     77% {
-        right: 11px;
+        right: 12.02px;
     }
     78% {
-        right: 12px;
+        right: 12.84px;
     }
     79% {
-        right: 13px;
+        right: 13.66px;
     }
     80% {
-        right: 14px;
+        right: 14.48px;
     }
     81% {
-        right: 15px;
+        right: 15.3px;
     }
     82% {
-        right: 16px;
+        right: 16.12px;
     }
-    83% {
+    to {
         right: 17px;
     }
 }
