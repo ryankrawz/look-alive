@@ -1,31 +1,58 @@
-<div *ngIf="!roundStarted">
-    <i [routerLink]="''" class="fa-solid fa-circle-arrow-left"></i>
-    <div *ngIf="!endReached">
-        <h2>Are you ready for <strong>{{ deckName }}</strong>?</h2>
-        <h3 *ngIf="previousScore !== null">Previous round's score: {{ previousScore }}</h3>
-        <button (click)="start()">Start</button>
-    </div>
-    <div *ngIf="endReached">
-        <h2>You've reached the end of the deck for <strong>{{ deckName }}</strong>!</h2>
-        <h3 *ngIf="previousScore !== null">Previous round's score: {{ previousScore }}</h3>
+<div class="full-page spectrum-background" *ngIf="!roundStarted">
+    <div class="center-page">
+        <div *ngIf="!endReached">
+            <h2>Are you ready for <strong>{{ deckName }}</strong>?</h2>
+            <h3 *ngIf="previousScore !== null">Previous round's score: {{ previousScore }}</h3>
+            <button type="button" class="btn btn-light" [routerLink]="''"><i class="fa-solid fa-house"></i></button>
+            <button type="button" class="btn btn-dark" (click)="start()">Start</button>
+        </div>
+        <div *ngIf="endReached">
+            <h2>You've reached the end of the deck for <strong>{{ deckName }}</strong>!</h2>
+            <h3 *ngIf="previousScore !== null">Previous round's score: {{ previousScore }}</h3>
+            <button type="button" class="btn btn-light" [routerLink]="''"><i class="fa-solid fa-house"></i></button>
+        </div>
     </div>
 </div>
-<div *ngIf="roundStarted" [class.landscape]="roundStarted">
+<div
+    *ngIf="roundStarted"
+    [class.landscape]="roundStarted"
+    [class.full-page]="countDown > 0"
+    [class.spectrum-background]="countDown > 0"
+>
     <div *ngIf="countDown > 0">
-        <h2>{{ countDown }}</h2>
-    </div>
-    <div *ngIf="countDown === 0">
-        <div>
-            <p>{{ currentCard }}</p>
-            <p>{{ remainingSec }}</p>
-            <div
-                [class.fill]="resultCorrect"
-                (dblclick)="doubleClickHandler(true)"
-            ><span>Correct <i class="fa-solid fa-circle-check"></i></span></div>
-            <div
-                [class.fill]="resultSkip"
-                (dblclick)="doubleClickHandler(false)"
-            ><span>Skip <i class="fa-solid fa-forward"></i></span></div>
+        <div class="center-page">
+            <h1 class="bigger-font">{{ countDown }}</h1>
         </div>
+    </div>
+    <div
+        class="full-page"
+        *ngIf="countDown === 0"
+    >
+        <div
+            [class.center-page]="!(resultCorrect || resultSkip)"
+        >
+            <div class="card" *ngIf="!(resultCorrect || resultSkip)">
+                <div class="card-body">
+                    <h1 class="card-title">{{ currentCard }}</h1>
+                    <h3 class="card-text">{{ remainingSec }}</h3>
+                </div>
+            </div>
+        </div>
+        <div
+            class="clickable big-font correct"
+            *ngIf="!resultSkip"
+            [class.center-page]="resultCorrect"
+            [class.flex-center]="resultCorrect"
+            [class.left-option]="!(resultCorrect || resultSkip)"
+            (dblclick)="doubleClickHandler(true)"
+        ><span [class.left-label]="!(resultCorrect || resultSkip)">Correct <i class="fa-solid fa-circle-check"></i></span></div>
+        <div
+            class="clickable big-font skip"
+            *ngIf="!resultCorrect"
+            [class.center-page]="resultSkip"
+            [class.flex-center]="resultSkip"
+            [class.right-option]="!(resultCorrect || resultSkip)"
+            (dblclick)="doubleClickHandler(false)"
+        ><span [class.right-label]="!(resultCorrect || resultSkip)">Skip <i class="fa-solid fa-forward"></i></span></div>
     </div>
 </div>

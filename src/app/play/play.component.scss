@@ -1,7 +1,59 @@
-.fill {
-    background: white;
+.big-font {
+    font-size: 3vw;
+}
+
+.bigger-font {
+    font-size: 6vw;
+}
+
+.correct {
+    background: #46fa70;
+    height: 100%;
+    width: 100%;
+}
+
+.skip {
+    background: #fadf46;
+    height: 100%;
+    width: 100%;
+}
+
+.left-option {
+    width: 50%;
+    height: 100vh;
+    float: left;
+}
+
+.right-option {
+    margin-left: 50%;
+    height: 100vh;
+}
+
+.left-label {
     position: absolute;
-    inset: 0px;
+    left: 10%;
+    top: 50%;
+    transform: translate(-10%, -50%);
+    text-align: center;
+}
+
+.right-label {
+    position: absolute;
+    right: 10%;
+    top: 50%;
+    transform: translate(10%, -50%);
+    text-align: center;
+}
+
+.clickable {
+    cursor: pointer;
+}
+
+.flex-center {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-direction: column;
 }
 
 .landscape {
