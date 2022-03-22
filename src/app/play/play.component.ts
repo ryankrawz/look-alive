@@ -19,6 +19,7 @@ export class PlayComponent implements OnDestroy, OnInit {
   resultSkip: boolean = false;
   score: number = 0;
   startPosition: number = 0;
+  timeoutId: number | null = null;
 
   constructor(
     private deckService: DeckService,
@@ -44,24 +45,27 @@ export class PlayComponent implements OnDestroy, OnInit {
     removeEventListener('beforeunload', this.ngOnDestroy.bind(this));
   }
 
-  // Handles event for button being double clicked
-  doubleClickHandler(correct: boolean): void {
-    this.resultCorrect = correct;
-    this.resultSkip = !correct;
-    // Display result for 2 sec
-    window.setTimeout(() => {
-      this.resultCorrect = false;
-      this.resultSkip = false;
-      if (correct) {
-        this.score++;
-      }
-      const nextCard = this.deckService.nextCard(this.startPosition);
-      if (!nextCard) {
-        this.end();
-        this.endReached = true;
-      }
-      this.currentCard = this.deckService.getCurrentCard();
-    }, 2000);
+  // Handles event for button being held
+  downHandler(correct: boolean): void {
+    // Trigger answering mechanism if held more than 500ms
+    this.timeoutId = window.setTimeout(() => {
+      this.resultCorrect = correct;
+      this.resultSkip = !correct;
+      // Display result for 2 sec
+      window.setTimeout(() => {
+        this.resultCorrect = false;
+        this.resultSkip = false;
+        if (correct) {
+          this.score++;
+        }
+        const nextCard = this.deckService.nextCard(this.startPosition);
+        if (!nextCard) {
+          this.end();
+          this.endReached = true;
+        }
+        this.currentCard = this.deckService.getCurrentCard();
+      }, 2000);
+    }, 500);
   }
 
   // Sets previous score and wristes updated deck
@@ -101,5 +105,13 @@ export class PlayComponent implements OnDestroy, OnInit {
         this.remainingSec--;
       }
     }, 1000);
+  }
+
+  // Handles event for button being released
+  upHandler(): void {
+    if (this.timeoutId !== null) {
+      window.clearTimeout(this.timeoutId);
+      this.timeoutId = null;
+    }
   }
 }

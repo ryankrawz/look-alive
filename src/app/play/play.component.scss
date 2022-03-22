@@ -1,18 +1,20 @@
 .big-font {
-    font-size: 3vw;
+    font-size: 4vh;
 }
 
 .bigger-font {
-    font-size: 6vw;
+    font-size: 15vh;
 }
 
 .correct {
+    color: white;
     background: #46fa70;
     height: 100%;
     width: 100%;
 }
 
 .skip {
+    color: white;
     background: #fadf46;
     height: 100%;
     width: 100%;
@@ -58,7 +60,11 @@
 
 .landscape {
     @media only screen and (orientation:portrait) {
-        height: 100vw;
         transform: rotate(90deg);
+        transform-origin:bottom left;
+        position:absolute;
+        top:-100vw;
+        height:100vw;
+        width:100vh;
     }
 }

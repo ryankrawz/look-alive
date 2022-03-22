@@ -44,7 +44,9 @@
             [class.center-page]="resultCorrect"
             [class.flex-center]="resultCorrect"
             [class.left-option]="!(resultCorrect || resultSkip)"
-            (dblclick)="doubleClickHandler(true)"
+            (mousedown)="downHandler(true)"
+            (mouseup)="upHandler()"
+            (mouseleave)="upHandler()"
         ><span [class.left-label]="!(resultCorrect || resultSkip)">Correct <i class="fa-solid fa-circle-check"></i></span></div>
         <div
             class="clickable big-font skip"
@@ -52,7 +54,9 @@
             [class.center-page]="resultSkip"
             [class.flex-center]="resultSkip"
             [class.right-option]="!(resultCorrect || resultSkip)"
-            (dblclick)="doubleClickHandler(false)"
+            (mousedown)="downHandler(false)"
+            (mouseup)="upHandler()"
+            (mouseleave)="upHandler()"
         ><span [class.right-label]="!(resultCorrect || resultSkip)">Skip <i class="fa-solid fa-forward"></i></span></div>
     </div>
 </div>
