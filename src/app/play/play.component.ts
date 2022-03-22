@@ -44,28 +44,24 @@ export class PlayComponent implements OnDestroy, OnInit {
     removeEventListener('beforeunload', this.ngOnDestroy.bind(this));
   }
 
-  // Pauses device orientation listener for 500 ms and indicates a correct guess or skip
-  displayResult(correct: boolean): void {
+  // Handles event for button being double clicked
+  doubleClickHandler(correct: boolean): void {
     this.resultCorrect = correct;
     this.resultSkip = !correct;
+    // Display result for 2 sec
     window.setTimeout(() => {
       this.resultCorrect = false;
       this.resultSkip = false;
+      if (correct) {
+        this.score++;
+      }
+      const nextCard = this.deckService.nextCard(this.startPosition);
+      if (!nextCard) {
+        this.end();
+        this.endReached = true;
+      }
+      this.currentCard = this.deckService.getCurrentCard();
     }, 2000);
-  }
-
-  // Handles event for button being double clicked
-  doubleClickHandler(correct: boolean): void {
-    this.displayResult(correct);
-    if (correct) {
-      this.score++;
-    }
-    const nextCard = this.deckService.nextCard(this.startPosition);
-    if (!nextCard) {
-      this.end();
-      this.endReached = true;
-    }
-    this.currentCard = this.deckService.getCurrentCard();
   }
 
   // Sets previous score and wristes updated deck
