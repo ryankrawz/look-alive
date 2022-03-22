@@ -70,45 +70,41 @@ export class PlayComponent implements OnDestroy, OnInit {
 
   // Sets previous score and wristes updated deck
   end(): void {
-    document.exitFullscreen().then(() => {
-      if (this.deckService.currentDeck) {
-        this.previousScore = this.score;
-        this.deckService.currentDeck.previousScore = this.score;
-      }
-      this.deckService.writeDeck();
-      this.score = 0;
-      this.roundStarted = false;
-    });
+    if (this.deckService.currentDeck) {
+      this.previousScore = this.score;
+      this.deckService.currentDeck.previousScore = this.score;
+    }
+    this.deckService.writeDeck();
+    this.score = 0;
+    this.roundStarted = false;
   }
 
   // Begins round countdown and shows current card in deck
   start(): void {
-    document.documentElement.requestFullscreen().then(() => {
-      this.roundStarted = true;
-      if (this.deckService.currentDeck) {
-        // Default round length is 60 sec
-        this.remainingSec = this.deckService.currentDeck.roundLengthSec;
+    this.roundStarted = true;
+    if (this.deckService.currentDeck) {
+      // Default round length is 60 sec
+      this.remainingSec = this.deckService.currentDeck.roundLengthSec;
+    }
+    // 3 second period for player to prepare
+    this.countDown = 3;
+    const countDownInterval = setInterval(() => {
+      if (this.countDown === 0) {
+        clearInterval(countDownInterval);
+      } else {
+        this.countDown--;
       }
-      // 3 second period for player to prepare
-      this.countDown = 3;
-      const countDownInterval = setInterval(() => {
-        if (this.countDown === 0) {
-          clearInterval(countDownInterval);
-        } else {
-          this.countDown--;
-        }
-      }, 1000);
-      // Decrement round length to count down seconds
-      const roundInterval = setInterval(() => {
-        if (this.remainingSec === 0) {
-          clearInterval(roundInterval);
-          this.end();
-        // Only decrement round countdown if initial countdown is completed
-        } else if (this.countDown === 0) {
-          this.remainingSec--;
-        }
-      }, 1000);
-    });
+    }, 1000);
+    // Decrement round length to count down seconds
+    const roundInterval = setInterval(() => {
+      if (this.remainingSec === 0) {
+        clearInterval(roundInterval);
+        this.end();
+      // Only decrement round countdown if initial countdown is completed
+      } else if (this.countDown === 0) {
+        this.remainingSec--;
+      }
+    }, 1000);
   }
 
   // Handles event for button being released
