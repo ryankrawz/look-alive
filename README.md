@@ -1,4 +1,4 @@
-# LookAlive
+# Look Alive
 
 A guessing game like you've never seen before.
 
