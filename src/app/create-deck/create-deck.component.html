@@ -12,7 +12,11 @@
         </div>
         <div *ngIf="deckNameEntered && roundLengthEntered">
             <label for="card"><h4>Add a card to your game:</h4></label>
-            <input class="form-control" [(ngModel)]="card" type="text" id="card" name="card">
+            <div class="input-group mb-3">
+                <input class="form-control" [(ngModel)]="card" (input)="repeatCard = false" type="text" id="card" name="card">
+                <span class="input-group-text">{{ cards.length }}</span>
+            </div>
+            <p *ngIf="repeatCard">You've already added a <strong>{{ card }}</strong> card!</p>
             <button type="button" class="btn btn-light" [disabled]="!card" (click)="add()">Add</button>
             <button type="button" class="btn btn-dark" [disabled]="cards.length === 0" (click)="finish()">Finish</button>
         </div>

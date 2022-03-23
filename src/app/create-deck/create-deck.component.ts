@@ -10,9 +10,11 @@ import { DeckService } from '../services/deck.service';
 })
 export class CreateDeckComponent implements OnInit {
   card: string = '';
+  cardInput: HTMLElement | null = null;
   cards: string[] = [];
   deckName: string = '';
   deckNameEntered: boolean = false;
+  repeatCard: boolean = false;
   roundLength: number = 60;
   roundLengthEntered: boolean = false;
 
@@ -26,8 +28,17 @@ export class CreateDeckComponent implements OnInit {
 
   // Add card to deck
   add(): void {
-    this.cards.push(this.card);
-    this.card = '';
+    // Avoid repeat cards, ignore capitalization
+    this.repeatCard = this.cards.some((card: string) => card.toLowerCase() === this.card.toLowerCase());
+    if (!this.repeatCard) {
+      this.cards.push(this.card);
+      this.card = '';
+    }
+    // Automatically refocus on input field
+    if (this.cardInput === null) {
+      this.cardInput = document.getElementById('card');
+    }
+    this.cardInput?.focus();
   }
 
   // Complete input for stage of deck information

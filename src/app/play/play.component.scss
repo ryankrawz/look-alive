@@ -8,14 +8,14 @@
 
 .correct {
     color: white;
-    background: #46fa70;
+    background: #3c8a32;
     height: 100%;
     width: 100%;
 }
 
 .skip {
     color: white;
-    background: #fadf46;
+    background: #bfba2e;
     height: 100%;
     width: 100%;
 }
@@ -37,6 +37,8 @@
     top: 50%;
     transform: translate(-10%, -50%);
     text-align: center;
+    user-select: none;
+    -webkit-user-select: none;
 }
 
 .right-label {
@@ -45,6 +47,8 @@
     top: 50%;
     transform: translate(10%, -50%);
     text-align: center;
+    user-select: none;
+    -webkit-user-select: none;
 }
 
 .clickable {

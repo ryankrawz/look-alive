@@ -2,13 +2,13 @@
     <div class="center-page">
         <div *ngIf="!endReached">
             <h2>Are you ready for <strong>{{ deckName }}</strong>?</h2>
-            <h3 *ngIf="previousScore !== null">Previous round's score: {{ previousScore }}</h3>
+            <h4 *ngIf="previousScore !== null">Previous score: {{ previousScore }}</h4>
             <button type="button" class="btn btn-light" [routerLink]="''"><i class="fa-solid fa-house"></i></button>
             <button type="button" class="btn btn-dark" (click)="start()">Start</button>
         </div>
         <div *ngIf="endReached">
             <h2>You've reached the end of the deck for <strong>{{ deckName }}</strong>!</h2>
-            <h3 *ngIf="previousScore !== null">Previous round's score: {{ previousScore }}</h3>
+            <h4 *ngIf="previousScore !== null">Previous score: {{ previousScore }}</h4>
             <button type="button" class="btn btn-light" [routerLink]="''"><i class="fa-solid fa-house"></i></button>
         </div>
     </div>
@@ -47,7 +47,10 @@
             (touchstart)="downHandler(true)"
             (touchend)="upHandler()"
             (touchcancel)="upHandler()"
-        ><span [class.left-label]="!(resultCorrect || resultSkip)">Correct <i class="fa-solid fa-circle-check"></i></span></div>
+        ><span
+            class="bigger-font"
+            [class.left-label]="!(resultCorrect || resultSkip)"
+        ><i class="fa-solid fa-circle-check"></i></span></div>
         <div
             class="clickable big-font skip"
             *ngIf="!resultCorrect"
@@ -57,6 +60,9 @@
             (touchstart)="downHandler(false)"
             (touchend)="upHandler()"
             (touchcancel)="upHandler()"
-        ><span [class.right-label]="!(resultCorrect || resultSkip)">Skip <i class="fa-solid fa-forward"></i></span></div>
+        ><span
+            class="bigger-font"
+            [class.right-label]="!(resultCorrect || resultSkip)"
+        ><i class="fa-solid fa-forward"></i></span></div>
     </div>
 </div>
