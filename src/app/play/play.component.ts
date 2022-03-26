@@ -45,34 +45,6 @@ export class PlayComponent implements OnDestroy, OnInit {
     removeEventListener('beforeunload', this.ngOnDestroy.bind(this));
   }
 
-  // Handles changes in gamma rotation
-  deviceOrientationHandler(e: DeviceOrientationEvent): void {
-    // Correct guess: gamma rotation between 0 and 10 degrees
-    const correct = Boolean(e.gamma && e.gamma > 0 && e.gamma < 10);
-    // Skip: gamma rotation between 0 and -10 degrees
-    const skip = Boolean(e.gamma && e.gamma < 0 && e.gamma > -10);
-    if (correct || skip) {
-      removeEventListener('deviceorientation', this.deviceOrientationHandler.bind(this));
-      this.resultCorrect = correct;
-      this.resultSkip = !correct;
-      // Display result for 2 sec
-      window.setTimeout(() => {
-        this.resultCorrect = false;
-        this.resultSkip = false;
-        if (correct) {
-          this.score++;
-        }
-        const nextCard = this.deckService.nextCard(this.startPosition);
-        if (!nextCard) {
-          this.end();
-          this.endReached = true;
-        }
-        this.currentCard = this.deckService.getCurrentCard();
-        addEventListener('deviceorientation', this.deviceOrientationHandler.bind(this));
-      }, 2000);
-    }
-  }
-
   // Handles event for button being held
   downHandler(correct: boolean): void {
     // Trigger answering mechanism if held more than 500ms
@@ -98,7 +70,6 @@ export class PlayComponent implements OnDestroy, OnInit {
 
   // Sets previous score and wristes updated deck
   end(): void {
-    removeEventListener('deviceorientation', this.deviceOrientationHandler.bind(this));
     if (this.deckService.currentDeck) {
       this.previousScore = this.score;
       this.deckService.currentDeck.previousScore = this.score;
@@ -134,7 +105,6 @@ export class PlayComponent implements OnDestroy, OnInit {
         this.remainingSec--;
       }
     }, 1000);
-    addEventListener('deviceorientation', this.deviceOrientationHandler.bind(this));
   }
 
   // Handles event for button being released
