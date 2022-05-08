@@ -8,6 +8,9 @@ import { DeckService } from '../services/deck.service';
   styleUrls: ['./play.component.scss']
 })
 export class PlayComponent implements OnDestroy, OnInit {
+  private score: number = 0;
+  private startPosition: number = 0;
+  private timeoutId: number | null = null;
   countDown: number = 0;
   currentCard: string = '';
   deckName: string = '';
@@ -17,9 +20,6 @@ export class PlayComponent implements OnDestroy, OnInit {
   remainingSec: number = 60;
   resultCorrect: boolean = false;
   resultSkip: boolean = false;
-  score: number = 0;
-  startPosition: number = 0;
-  timeoutId: number | null = null;
 
   constructor(
     private deckService: DeckService,
@@ -40,7 +40,7 @@ export class PlayComponent implements OnDestroy, OnInit {
 
   ngOnDestroy(): void {
     if (this.roundStarted) {
-      this.end();
+      this.end(true);
     }
     removeEventListener('beforeunload', this.ngOnDestroy.bind(this));
   }
@@ -60,7 +60,7 @@ export class PlayComponent implements OnDestroy, OnInit {
         }
         const nextCard = this.deckService.nextCard(this.startPosition);
         if (!nextCard) {
-          this.end();
+          this.end(nextCard);
           this.endReached = true;
         }
         this.currentCard = this.deckService.getCurrentCard();
@@ -68,11 +68,16 @@ export class PlayComponent implements OnDestroy, OnInit {
     }, 500);
   }
 
-  // Sets previous score and wristes updated deck
-  end(): void {
+  // Sets previous score and writes updated deck
+  private end(nextCard: boolean): void {
     if (this.deckService.currentDeck) {
       this.previousScore = this.score;
       this.deckService.currentDeck.previousScore = this.score;
+    }
+    // Iterate card so next round starts with new card
+    if (nextCard) {
+      this.endReached = !this.deckService.nextCard(this.startPosition);
+      this.currentCard = this.deckService.getCurrentCard();
     }
     this.deckService.writeDeck();
     this.score = 0;
@@ -99,7 +104,7 @@ export class PlayComponent implements OnDestroy, OnInit {
     const roundInterval = setInterval(() => {
       if (this.remainingSec === 0) {
         clearInterval(roundInterval);
-        this.end();
+        this.end(true);
       // Only decrement round countdown if initial countdown is completed and no result is displayed
       } else if (this.countDown === 0 && !(this.resultCorrect || this.resultSkip)) {
         this.remainingSec--;

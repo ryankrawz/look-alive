@@ -6,8 +6,8 @@ import { Deck } from '../interfaces/deck.interface';
   providedIn: 'root'
 })
 export class DeckService {
+  private deckKey: string = 'look.alive.current.deck';
   currentDeck: Deck | null = null;
-  deckKey: string = 'look.alive.current.deck';
 
   constructor() { }
 

@@ -9,8 +9,8 @@ import { DeckService } from '../services/deck.service';
   styleUrls: ['./create-deck.component.scss']
 })
 export class CreateDeckComponent implements OnInit {
+  private cardInput: HTMLElement | null = null;
   card: string = '';
-  cardInput: HTMLElement | null = null;
   cards: string[] = [];
   deckName: string = '';
   deckNameEntered: boolean = false;
