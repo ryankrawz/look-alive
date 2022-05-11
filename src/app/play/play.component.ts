@@ -104,7 +104,9 @@ export class PlayComponent implements OnDestroy, OnInit {
     const roundInterval = setInterval(() => {
       if (this.remainingSec === 0) {
         clearInterval(roundInterval);
-        this.end(true);
+        if (this.roundStarted) {
+          this.end(true);
+        }
       // Only decrement round countdown if initial countdown is completed and no result is displayed
       } else if (this.countDown === 0 && !(this.resultCorrect || this.resultSkip)) {
         this.remainingSec--;
